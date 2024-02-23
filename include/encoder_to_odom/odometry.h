@@ -7,6 +7,7 @@
 // TODO: this vs consexpr float
 #define PI 3.14159265
 #define THREE_SIXTY 360.0
+#define SETTLE_READINGS 3
 
 /**
  * @brief Enum to determin which motor an encoder is attached to
@@ -52,15 +53,6 @@ struct Distance
 class OdometryProcessor
 {
   public:
-    /**
-     * @brief Construct a new Odometry Processor object
-     *
-     * @param wheelCircumfrance Circumfrance in meters of robots wheels
-     * @param wheelBase Distance between center of wheels in meters
-     * @param gearRatio Number of encoder rotations per 1 wheel rotation, ex) an encoder mounted
-     * @param rolloverThreshold Delta value that if seen indicates a rollover of the encoder
-     * directly on the robots wheel this number would be 1.0
-     */
     OdometryProcessor(float wheelCircumference, float wheelBase, float gearRatio,
                       float rolloverThreshold, bool rightIncrease = true, bool leftIncrease = true);
 
@@ -69,7 +61,7 @@ class OdometryProcessor
      *
      * @param value
      */
-    void updateCurrentValue(float value, Motor motor);
+    void updateCurrentValue(Motor motor, float value);
 
     /**
      * @brief Calculate the total distance the robot moved in the x axis
@@ -82,14 +74,6 @@ class OdometryProcessor
      *
      */
     void calculateDistanceMovedY();
-
-    // /**
-    //  * @brief Check if the robot has produced new left and right motor readings
-    //  *
-    //  * @return true new values for both motor encoders are available
-    //  * @return false new values for both motor encoders are NOT yet available
-    //  */
-    // bool sync();
 
     /**
      * @brief Run all private calls to process new data frame
@@ -124,7 +108,20 @@ class OdometryProcessor
 
     float getTotalMetersTraveled(Motor motor);
 
-  private:
+    float getCurrentReading(Motor motor);
+    float getLastReading(Motor motor);
+    float getDegreesTraveledInFrame(Motor motor);
+
+    float getMetersTraveledInFrame(Motor motor);
+    void updateTimestamp(uint16_t timestamp);
+
+    uint16_t getDeltaTime();
+
+    Distance getDistance();
+
+    // void calculateSystemVelocity();
+
+  protected:
     /**
      * @brief Calculates the degrees the encoder moved in one frame
      *
@@ -172,6 +169,7 @@ class OdometryProcessor
 
     Position currentPosition = {0, 0, 0};
     Distance distance = {0, 0};
+    Velocity velocity = {0, 0};
 
     std::map<Motor, float> currentReadings;
     std::map<Motor, float> lastReadings;
@@ -179,19 +177,18 @@ class OdometryProcessor
     std::map<Motor, float> metersTraveledInFrame;
     std::map<Motor, float> totalMetersTraveled;
 
+    std::map<Motor, float> degreesTraveledInFrame;
+
     /// Number of readings to throw out before considering the system stabilized
-    int stablizationAmount = 3;
+    int stablizationAmount = SETTLE_READINGS;
 
     // TODO change to left and right forward direction multiplier 1 or -1 contructor takes in
     bool rightIncrease;
     bool leftIncrease;
 
-    // std::chrono::time_point<std::chrono::system_clock> linearStartTime;
-    // std::chrono::time_point<std::chrono::system_clock> angularStartTime;
+    uint16_t timestamp = 0;
+    uint16_t deltaTime = 0;
 
-    // float maxVelocity = 0.0;
-    // float linearVelocity = 0.0;
     // float angularVelocity = 0.0;
-
-    // float totalDistance = 0.0;
+    // float linearVelocity = 0.0;
 };

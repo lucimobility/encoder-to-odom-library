@@ -14,3 +14,7 @@ target_include_directories(encoder_to_odom PUBLIC
 )
 
  install (TARGETS encoder_to_odom DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+# Tests
+enable_testing()
+add_subdirectory(tests)
