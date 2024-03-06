@@ -1,3 +1,12 @@
+/**
+ * @file odometry.cpp
+ * @brief File to implement all odom math and encoder convertions
+ * @date 2024-03-06
+ *
+ * @copyright Copyright (c) 2024 LUCI Mobility, Inc. All Rights Reserved.
+ *
+ */
+
 #include "encoder_to_odom/odometry.h"
 
 OdometryProcessor::OdometryProcessor(float wheelCircumference, float wheelBase, float gearRatio,
@@ -5,19 +14,13 @@ OdometryProcessor::OdometryProcessor(float wheelCircumference, float wheelBase, 
     : wheelCircumference(wheelCircumference), wheelBase(wheelBase), gearRatio(gearRatio),
       rolloverThreshold(rolloverThreshold), rightIncrease(rightIncrease), leftIncrease(leftIncrease)
 {
+    // Initialize the motor readings
     this->currentReadings[Motor::LEFT] = 0.0;
     this->currentReadings[Motor::RIGHT] = 0.0;
 }
-
-float OdometryProcessor::getCurrentReading(Motor motor) { return this->currentReadings[motor]; }
-
-float OdometryProcessor::getLastReading(Motor motor) { return this->lastReadings[motor]; }
-
+// Setters
 void OdometryProcessor::updateCurrentValue(Motor motor, float value)
 {
-
-    // TODO: sync method that isnt just two bools
-
     // Update last reading with current reading in map
     this->lastReadings[motor] = this->currentReadings[motor];
 
@@ -27,26 +30,37 @@ void OdometryProcessor::updateCurrentValue(Motor motor, float value)
 
 void OdometryProcessor::updateTimestamp(uint16_t timestamp)
 {
+    // Calculate delta time
     this->deltaTime = timestamp - this->timestamp;
+    // Update reading for next frame delta time
     this->timestamp = timestamp;
 }
 
+bool OdometryProcessor::settled()
+{
+    if (this->stablizationAmount > 0)
+    {
+        this->stablizationAmount--;
+        return false;
+    }
+    return true;
+}
+
+// Calculations
 float OdometryProcessor::calculateDeltaDegrees(float currentDegreeReading, float lastDegreeReading)
 {
-    float currentPreviousDelta = 0.0;
-    if (currentDegreeReading != lastDegreeReading)
+    float currentPreviousDelta = currentDegreeReading - lastDegreeReading;
+
+    // Is the change in angle large enough to be a rollover
+    if (currentPreviousDelta > this->rolloverThreshold)
     {
-        float currentPreviousDelta = currentDegreeReading - lastDegreeReading;
+        currentPreviousDelta = 0 - (THREE_SIXTY - currentPreviousDelta);
+    }
 
-        if (currentPreviousDelta > this->rolloverThreshold)
-        {
-            currentPreviousDelta = 0 - (360.0 - currentPreviousDelta);
-        }
-
-        else if (currentPreviousDelta < -this->rolloverThreshold)
-        {
-            currentPreviousDelta = 360.0 + currentPreviousDelta;
-        }
+    // Is the change in angle in negative a direction enough to be a rollunder
+    else if (currentPreviousDelta < -this->rolloverThreshold)
+    {
+        currentPreviousDelta = THREE_SIXTY + currentPreviousDelta;
     }
     return currentPreviousDelta;
 }
@@ -58,20 +72,12 @@ void OdometryProcessor::calculateDegreesTraveledInFrame(Motor motor)
     auto currentReading = this->getCurrentReading(motor);
     auto lastReading = this->getLastReading(motor);
 
+    // calculate the delta degrees
     float deltaDegrees = calculateDeltaDegrees(currentReading, lastReading);
 
+    // Update motors entry values
     this->totalDegreesTraveled[motor] += deltaDegrees;
     this->degreesTraveledInFrame[motor] = deltaDegrees;
-}
-
-float OdometryProcessor::getTotalDegreesTraveled(Motor motor)
-{
-    return this->totalDegreesTraveled[motor];
-}
-
-float OdometryProcessor::getDegreesTraveledInFrame(Motor motor)
-{
-    return this->degreesTraveledInFrame[motor];
 }
 
 void OdometryProcessor::calculateMetersMotorTraveledInFrame(Motor motor) // Per frame
@@ -102,16 +108,6 @@ void OdometryProcessor::calculateMetersMotorTraveledInFrame(Motor motor) // Per 
     this->totalMetersTraveled[motor] += metersTraveled;
 }
 
-float OdometryProcessor::getTotalMetersTraveled(Motor motor)
-{
-    return this->totalMetersTraveled[motor];
-}
-
-float OdometryProcessor::getMetersTraveledInFrame(Motor motor)
-{
-    return this->metersTraveledInFrame[motor];
-}
-
 void OdometryProcessor::calculateFrameDistance()
 {
 
@@ -120,12 +116,13 @@ void OdometryProcessor::calculateFrameDistance()
 
     this->distance.frameDistance = (rightDistance + leftDistance) / 2.0;
 
-    this->velocity.linearY = this->distance.frameDistance / (this->getDeltaTime() / 1000.0f);
+    std::cout << "DT (milli): " << this->getDeltaTime()
+              << " DT (sec): " << this->getDeltaTime() / 1000.0f << std::endl;
+
+    this->velocity.linearX = this->distance.frameDistance / (this->getDeltaTime() / 1000.0f);
 
     this->distance.totalDistance += this->distance.frameDistance;
 }
-
-Distance OdometryProcessor::getDistance() { return this->distance; }
 
 // Radians
 void OdometryProcessor::calculateTheta()
@@ -134,12 +131,15 @@ void OdometryProcessor::calculateTheta()
     auto rightDistance = this->metersTraveledInFrame[Motor::RIGHT];
     auto leftDistance = this->metersTraveledInFrame[Motor::LEFT];
 
+    // Delta between two motors traveled
     float difference = rightDistance - leftDistance;
-    this->velocity.angularZ = difference / (this->getDeltaTime() / 1000.0f);
 
     float angle = asinf(difference / this->wheelBase); // Radians
+    // Radians / sec
+    this->velocity.angularZ = angle / (this->getDeltaTime() / 1000.0f);
 
     this->currentPosition.theta += (angle);
+    // Restrain theta to a single 180
     if (this->currentPosition.theta > PI)
     {
         this->currentPosition.theta -= 2.0 * PI;
@@ -152,42 +152,15 @@ void OdometryProcessor::calculateTheta()
 
 void OdometryProcessor::calculateDistanceMovedX()
 {
-
     float distanceMoved = cosf(this->currentPosition.theta) * this->distance.frameDistance;
-
     this->currentPosition.x += distanceMoved;
 }
 
 void OdometryProcessor::calculateDistanceMovedY()
 {
-
     float distanceMoved = sinf(this->currentPosition.theta) * this->distance.frameDistance;
     this->currentPosition.y += distanceMoved;
 }
-
-Position OdometryProcessor::getPosition() { return this->currentPosition; }
-
-bool OdometryProcessor::settled()
-{
-    if (this->stablizationAmount > 0)
-    {
-        this->stablizationAmount--;
-        return false;
-    }
-    return true;
-}
-
-uint16_t OdometryProcessor::getDeltaTime() { return this->deltaTime; }
-
-Velocity OdometryProcessor::getVelocity() { return this->velocity; }
-
-// void OdometryProcessor::calculateSystemVelocity()
-// {
-//     auto frameDistance = this->get;
-//     auto frameTheta = this->getDegreesTraveledInFrame();
-
-//     auto deltaTime = this->getDeltaTime();
-// }
 
 void OdometryProcessor::processData()
 {
@@ -202,7 +175,38 @@ void OdometryProcessor::processData()
 
         this->calculateDistanceMovedX();
         this->calculateDistanceMovedY();
-
-        // this->calculateSystemVelocity();
     }
+}
+
+// Getters
+float OdometryProcessor::getCurrentReading(Motor motor) { return this->currentReadings[motor]; }
+
+float OdometryProcessor::getLastReading(Motor motor) { return this->lastReadings[motor]; }
+
+Distance OdometryProcessor::getDistance() { return this->distance; }
+
+int OdometryProcessor::getDeltaTime() { return this->deltaTime; }
+
+Velocity OdometryProcessor::getVelocity() { return this->velocity; }
+
+Position OdometryProcessor::getPosition() { return this->currentPosition; }
+
+float OdometryProcessor::getTotalDegreesTraveled(Motor motor)
+{
+    return this->totalDegreesTraveled[motor];
+}
+
+float OdometryProcessor::getDegreesTraveledInFrame(Motor motor)
+{
+    return this->degreesTraveledInFrame[motor];
+}
+
+float OdometryProcessor::getTotalMetersTraveled(Motor motor)
+{
+    return this->totalMetersTraveled[motor];
+}
+
+float OdometryProcessor::getMetersTraveledInFrame(Motor motor)
+{
+    return this->metersTraveledInFrame[motor];
 }
