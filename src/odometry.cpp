@@ -135,7 +135,8 @@ void OdometryProcessor::calculateTheta()
     float difference = rightDistance - leftDistance;
 
     float angle = asinf(difference / this->wheelBase); // Radians
-    if (angle < 0.0174533)
+    std::cout << "ANGLE: " << angle << std::endl;
+    if (angle < 0.00349066)
     {
         angle = 0.0;
     }
