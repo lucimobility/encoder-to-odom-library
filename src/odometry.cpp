@@ -139,7 +139,7 @@ void OdometryProcessor::calculateTheta()
     {
         std::cout << "ANGLE: " << angle << std::endl;
     }
-    if (angle < 0.0006)
+    if (std::abs(angle) < 0.0006)
     {
         angle = 0.0;
     }
