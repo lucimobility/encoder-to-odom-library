@@ -135,6 +135,10 @@ void OdometryProcessor::calculateTheta()
     float difference = rightDistance - leftDistance;
 
     float angle = asinf(difference / this->wheelBase); // Radians
+    if (angle < 0.0174533)
+    {
+        angle = 0.0;
+    }
     // Radians / sec
     this->velocity.angularZ = angle / (this->getDeltaTime() / 1000.0f);
 
