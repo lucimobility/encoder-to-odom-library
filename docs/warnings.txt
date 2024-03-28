@@ -1,0 +1,28 @@
+warning: source '../edge_serial_driver/include' is not a readable file or directory... skipping.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:64: warning: Compound OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:18: warning: Member THREE_SIXTY (variable) of file odometry.h is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:19: warning: Member SETTLE_READINGS (variable) of file odometry.h is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:60: warning: Member frameDistance (variable) of struct Distance is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:276: warning: Member previousRightDegree (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:280: warning: Member rightSync (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:291: warning: Member lastReadings (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:292: warning: Member totalDegreesTraveled (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:293: warning: Member metersTraveledInFrame (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:294: warning: Member totalMetersTraveled (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:295: warning: Member degreesTraveledInFrame (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:302: warning: Member leftIncrease (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:306: warning: Member deltaTime (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:88: warning: The following parameter of OdometryProcessor::updateCurrentValue(Motor motor, float value) is not documented:
+  parameter 'motor'
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:39: warning: Member x (variable) of struct Position is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/tests/encoder_test.cpp:140: warning: Member startTime (variable) of class Tester is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:276: warning: Member previousRightDegree (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:280: warning: Member rightSync (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:291: warning: Member lastReadings (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:292: warning: Member totalDegreesTraveled (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:293: warning: Member metersTraveledInFrame (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:294: warning: Member totalMetersTraveled (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:295: warning: Member degreesTraveledInFrame (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:302: warning: Member leftIncrease (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:306: warning: Member deltaTime (variable) of class OdometryProcessor is not documented.
+/home/christian/Documents/demo-code-amps/encoder-to-odom-library/include/encoder_to_odom/odometry.h:50: warning: Member linearX (variable) of struct Velocity is not documented.

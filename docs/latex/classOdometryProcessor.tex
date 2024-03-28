@@ -1,0 +1,486 @@
+\hypertarget{classOdometryProcessor}{}\doxysection{Odometry\+Processor Class Reference}
+\label{classOdometryProcessor}\index{OdometryProcessor@{OdometryProcessor}}
+
+
+Inheritance diagram for Odometry\+Processor\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classOdometryProcessor__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Odometry\+Processor\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classOdometryProcessor__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classOdometryProcessor_aeaca0bcb37afb502dd7d30e46030cd58}{Odometry\+Processor}} (float \mbox{\hyperlink{classOdometryProcessor_a1f2cb4481b5a8cd29a46c6f531764026}{wheel\+Circumference}}, float \mbox{\hyperlink{classOdometryProcessor_a8f9d6f20e91eb395214b68ba8ebbef4e}{wheel\+Base}}, float \mbox{\hyperlink{classOdometryProcessor_a94ff2a8884f5e5a64d5d3e76be7d3327}{gear\+Ratio}}, float \mbox{\hyperlink{classOdometryProcessor_a4d8a181a51eb53e3efe12729d5069ead}{rollover\+Threshold}}, bool \mbox{\hyperlink{classOdometryProcessor_a69850207666ad560f2a01cd0391fcd0e}{right\+Increase}}=true, bool left\+Increase=true)
+\begin{DoxyCompactList}\small\item\em Construct a new Odometry Processor object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classOdometryProcessor_a1b9d6feb4c887a0b56a78b612c1e2c26}{update\+Current\+Value}} (\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}} motor, float value)
+\begin{DoxyCompactList}\small\item\em Update with the latests encoder readings. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_a2c6c96f0660825e3e495a53f021051e7}\label{classOdometryProcessor_a2c6c96f0660825e3e495a53f021051e7}} 
+void \mbox{\hyperlink{classOdometryProcessor_a2c6c96f0660825e3e495a53f021051e7}{calculate\+Distance\+MovedX}} ()
+\begin{DoxyCompactList}\small\item\em Calculate the total distance the robot moved in the x axis. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_aad10e83864e8adf2a4ceffdc82e96729}\label{classOdometryProcessor_aad10e83864e8adf2a4ceffdc82e96729}} 
+void \mbox{\hyperlink{classOdometryProcessor_aad10e83864e8adf2a4ceffdc82e96729}{calculate\+Distance\+MovedY}} ()
+\begin{DoxyCompactList}\small\item\em Calculate the total distance the robot moved in the y axis. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_a7116f36affe05397b17b474bb4a970d1}\label{classOdometryProcessor_a7116f36affe05397b17b474bb4a970d1}} 
+void \mbox{\hyperlink{classOdometryProcessor_a7116f36affe05397b17b474bb4a970d1}{process\+Data}} ()
+\begin{DoxyCompactList}\small\item\em Run all private calls to process new data frame. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structPosition}{Position}} \mbox{\hyperlink{classOdometryProcessor_ac855a7dc2813dd60cf814d42392b1613}{get\+Position}} ()
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{structPosition}{Position}} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structVelocity}{Velocity}} \mbox{\hyperlink{classOdometryProcessor_ad25922f609418a727ff24638af515aa0}{get\+Velocity}} ()
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{structVelocity}{Velocity}} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structDistance}{Distance}} \mbox{\hyperlink{classOdometryProcessor_ad49bbacd4320f62488223d1ca5eb342f}{get\+Distance}} ()
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{structDistance}{Distance}} object. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classOdometryProcessor_a3d30c501813a3a878f6b14eab3f54efa}{get\+Wheel\+Circumference}} ()
+\begin{DoxyCompactList}\small\item\em Get the Wheel Circumference object. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classOdometryProcessor_abc8edce5209ae8c496e43f9ad41a05ee}{get\+Wheel\+Base}} ()
+\begin{DoxyCompactList}\small\item\em Get the Wheel Base object. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classOdometryProcessor_af295b69366134c397799075aae97dce7}{get\+Gear\+Ratio}} ()
+\begin{DoxyCompactList}\small\item\em Get the Gear Ratio object. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classOdometryProcessor_a04541965fa8ca0c0e9010deac1d73513}{get\+Total\+Degrees\+Traveled}} (\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}} motor)
+\begin{DoxyCompactList}\small\item\em Get the total degrees traveled of a single motor since powering up. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classOdometryProcessor_a6c566224746ae1d46f7b679ab4c04d42}{get\+Total\+Meters\+Traveled}} (\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}} motor)
+\begin{DoxyCompactList}\small\item\em Get the total meters traveled of a single motor since powering up. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classOdometryProcessor_a363f1546795f13272df520472db7c00c}{get\+Degrees\+Traveled\+In\+Frame}} (\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}} motor)
+\begin{DoxyCompactList}\small\item\em Get the degrees traveled by a single motor in a single frame. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classOdometryProcessor_a84a9e45bb2e9bf0154d2fc0c6e7eabee}{get\+Meters\+Traveled\+In\+Frame}} (\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}} motor)
+\begin{DoxyCompactList}\small\item\em Get the meters traveled by a single motor in a single frame. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classOdometryProcessor_ab0eac5f33d1e900fb8d364512960ccf8}{get\+Current\+Reading}} (\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}} motor)
+\begin{DoxyCompactList}\small\item\em Get the Current Reading object. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classOdometryProcessor_afb2b3f86d4b49a0954d5cd7463916005}{get\+Last\+Reading}} (\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}} motor)
+\begin{DoxyCompactList}\small\item\em Get the Last Reading object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classOdometryProcessor_a236259819498ae9dcb7cb5cee34a67f4}{update\+Timestamp}} (uint16\+\_\+t \mbox{\hyperlink{classOdometryProcessor_a7864e59b32a828c0ae101bb550c2e680}{timestamp}})
+\begin{DoxyCompactList}\small\item\em Update the latest timestamp of received data. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classOdometryProcessor_a26cd934ea62b7654d0e9a98911942e7c}{get\+Delta\+Time}} ()
+\begin{DoxyCompactList}\small\item\em Calculate delta time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classOdometryProcessor_a9c4667990910966a0c23f29c9c5ae009}{calculate\+Degrees\+Traveled\+In\+Frame}} (\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}} motor)
+\begin{DoxyCompactList}\small\item\em Calculates the degrees the encoder moved in one frame. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classOdometryProcessor_ab4451955617438cc88a67cf663e7226a}{calculate\+Delta\+Degrees}} (float current\+Degree\+Reading, float last\+Degree\+Reading)
+\begin{DoxyCompactList}\small\item\em Handle the rollover / rollunder of encoders (360-\/$>$1), (1-\/$>$360) v. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classOdometryProcessor_a6f9677c32729ceed0d068f91137ef8c3}{calculate\+Meters\+Motor\+Traveled\+In\+Frame}} (\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}} motor)
+\begin{DoxyCompactList}\small\item\em Calculate the meters a single motor traveled in single frame. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_a18e4f43060d86ee87bf954fbbb4cb177}\label{classOdometryProcessor_a18e4f43060d86ee87bf954fbbb4cb177}} 
+void \mbox{\hyperlink{classOdometryProcessor_a18e4f43060d86ee87bf954fbbb4cb177}{calculate\+Frame\+Distance}} ()
+\begin{DoxyCompactList}\small\item\em Calculate the distance traveled of system in single frame. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_a6d1566955bc0dbb569c0c7958a8a9561}\label{classOdometryProcessor_a6d1566955bc0dbb569c0c7958a8a9561}} 
+void \mbox{\hyperlink{classOdometryProcessor_a6d1566955bc0dbb569c0c7958a8a9561}{calculate\+Theta}} ()
+\begin{DoxyCompactList}\small\item\em Calculate the total radians traveled since boot. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classOdometryProcessor_a41b1989c925e86359bcae19275311466}{settled}} ()
+\begin{DoxyCompactList}\small\item\em Evaluate if system has stabilized from first few readings at boot. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classOdometryProcessor_a1f2cb4481b5a8cd29a46c6f531764026}\label{classOdometryProcessor_a1f2cb4481b5a8cd29a46c6f531764026}} 
+float \mbox{\hyperlink{classOdometryProcessor_a1f2cb4481b5a8cd29a46c6f531764026}{wheel\+Circumference}} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Circumference of robot wheels in meters. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_a8f9d6f20e91eb395214b68ba8ebbef4e}\label{classOdometryProcessor_a8f9d6f20e91eb395214b68ba8ebbef4e}} 
+float \mbox{\hyperlink{classOdometryProcessor_a8f9d6f20e91eb395214b68ba8ebbef4e}{wheel\+Base}} = 0.\+0
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structDistance}{Distance}} between wheel centers of robot in meters. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_a94ff2a8884f5e5a64d5d3e76be7d3327}\label{classOdometryProcessor_a94ff2a8884f5e5a64d5d3e76be7d3327}} 
+float \mbox{\hyperlink{classOdometryProcessor_a94ff2a8884f5e5a64d5d3e76be7d3327}{gear\+Ratio}} = 1.\+0
+\begin{DoxyCompactList}\small\item\em Number of rotations encoder makes per 1 wheel rotation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_a4d8a181a51eb53e3efe12729d5069ead}\label{classOdometryProcessor_a4d8a181a51eb53e3efe12729d5069ead}} 
+float \mbox{\hyperlink{classOdometryProcessor_a4d8a181a51eb53e3efe12729d5069ead}{rollover\+Threshold}} = 100.\+0
+\begin{DoxyCompactList}\small\item\em Angle value that a delta change triggers a rollover Should be fine based on system max speed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_a0dff06994977a4067dcc5b148a41508e}\label{classOdometryProcessor_a0dff06994977a4067dcc5b148a41508e}} 
+float \mbox{\hyperlink{classOdometryProcessor_a0dff06994977a4067dcc5b148a41508e}{previous\+Left\+Degree}} = 0.\+0
+\begin{DoxyCompactList}\small\item\em The last processed Delta angle between encoder frames. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_abfaaf770376586a5b039cc99dd514c16}\label{classOdometryProcessor_abfaaf770376586a5b039cc99dd514c16}} 
+float {\bfseries previous\+Right\+Degree} = 0.\+0
+\item 
+\mbox{\Hypertarget{classOdometryProcessor_ace8908b5296311bad293e0e65efaff3b}\label{classOdometryProcessor_ace8908b5296311bad293e0e65efaff3b}} 
+bool \mbox{\hyperlink{classOdometryProcessor_ace8908b5296311bad293e0e65efaff3b}{left\+Sync}} = false
+\begin{DoxyCompactList}\small\item\em Sync trackers to determin if new data has been produced by the encoders. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_af72440c24466854e5a54475942f192b7}\label{classOdometryProcessor_af72440c24466854e5a54475942f192b7}} 
+bool {\bfseries right\+Sync} = false
+\item 
+\mbox{\Hypertarget{classOdometryProcessor_af3ab72d58e87a86acba440c97997a3c8}\label{classOdometryProcessor_af3ab72d58e87a86acba440c97997a3c8}} 
+\mbox{\hyperlink{structPosition}{Position}} \mbox{\hyperlink{classOdometryProcessor_af3ab72d58e87a86acba440c97997a3c8}{current\+Position}} = \{0, 0, 0\}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structPosition}{Position}} of system. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_ab2e5c31d5afa29d143fdfc9b100617cb}\label{classOdometryProcessor_ab2e5c31d5afa29d143fdfc9b100617cb}} 
+\mbox{\hyperlink{structDistance}{Distance}} \mbox{\hyperlink{classOdometryProcessor_ab2e5c31d5afa29d143fdfc9b100617cb}{distance}} = \{0, 0\}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structDistance}{Distance}} system has traveled. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_a13056734129e190db39f66e7fb86b0e4}\label{classOdometryProcessor_a13056734129e190db39f66e7fb86b0e4}} 
+\mbox{\hyperlink{structVelocity}{Velocity}} \mbox{\hyperlink{classOdometryProcessor_a13056734129e190db39f66e7fb86b0e4}{velocity}} = \{0, 0\}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structVelocity}{Velocity}} of system at given frame. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_a207dfb498e1d98255ebbb159b6d48aa6}\label{classOdometryProcessor_a207dfb498e1d98255ebbb159b6d48aa6}} 
+std\+::map$<$ \mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}, float $>$ \mbox{\hyperlink{classOdometryProcessor_a207dfb498e1d98255ebbb159b6d48aa6}{current\+Readings}}
+\begin{DoxyCompactList}\small\item\em Mappings for each motors individual recorded values. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_a1528c05272a0c91c824ac9c2176bf7c8}\label{classOdometryProcessor_a1528c05272a0c91c824ac9c2176bf7c8}} 
+std\+::map$<$ \mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}, float $>$ {\bfseries last\+Readings}
+\item 
+\mbox{\Hypertarget{classOdometryProcessor_ab5485a7ca77b4c7da696ade95ec3d07e}\label{classOdometryProcessor_ab5485a7ca77b4c7da696ade95ec3d07e}} 
+std\+::map$<$ \mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}, float $>$ {\bfseries total\+Degrees\+Traveled}
+\item 
+\mbox{\Hypertarget{classOdometryProcessor_a73a9eb02b9551c2ad4cd86df6d7156eb}\label{classOdometryProcessor_a73a9eb02b9551c2ad4cd86df6d7156eb}} 
+std\+::map$<$ \mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}, float $>$ {\bfseries meters\+Traveled\+In\+Frame}
+\item 
+\mbox{\Hypertarget{classOdometryProcessor_a679301747f15ba1f6e5d5dfa7f8560e4}\label{classOdometryProcessor_a679301747f15ba1f6e5d5dfa7f8560e4}} 
+std\+::map$<$ \mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}, float $>$ {\bfseries total\+Meters\+Traveled}
+\item 
+\mbox{\Hypertarget{classOdometryProcessor_adca758409f9cae917f1db0e20f01f9b9}\label{classOdometryProcessor_adca758409f9cae917f1db0e20f01f9b9}} 
+std\+::map$<$ \mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}, float $>$ {\bfseries degrees\+Traveled\+In\+Frame}
+\item 
+\mbox{\Hypertarget{classOdometryProcessor_a954197ae723d68fbf553e4b864bf8736}\label{classOdometryProcessor_a954197ae723d68fbf553e4b864bf8736}} 
+int \mbox{\hyperlink{classOdometryProcessor_a954197ae723d68fbf553e4b864bf8736}{stablization\+Amount}} = SETTLE\+\_\+\+READINGS
+\begin{DoxyCompactList}\small\item\em Number of readings to throw out before considering the system stabilized. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_a69850207666ad560f2a01cd0391fcd0e}\label{classOdometryProcessor_a69850207666ad560f2a01cd0391fcd0e}} 
+bool \mbox{\hyperlink{classOdometryProcessor_a69850207666ad560f2a01cd0391fcd0e}{right\+Increase}}
+\begin{DoxyCompactList}\small\item\em Which direction positive change in encoder values should be expected. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_a55b2d380f5a76a695e139267397f394e}\label{classOdometryProcessor_a55b2d380f5a76a695e139267397f394e}} 
+bool {\bfseries left\+Increase}
+\item 
+\mbox{\Hypertarget{classOdometryProcessor_a7864e59b32a828c0ae101bb550c2e680}\label{classOdometryProcessor_a7864e59b32a828c0ae101bb550c2e680}} 
+uint16\+\_\+t \mbox{\hyperlink{classOdometryProcessor_a7864e59b32a828c0ae101bb550c2e680}{timestamp}} = 0
+\begin{DoxyCompactList}\small\item\em Timestamp of reading from edge device such as Arduino. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classOdometryProcessor_ac76b8720a176ba5d7d7840dd91709e91}\label{classOdometryProcessor_ac76b8720a176ba5d7d7840dd91709e91}} 
+int {\bfseries delta\+Time} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classOdometryProcessor_aeaca0bcb37afb502dd7d30e46030cd58}\label{classOdometryProcessor_aeaca0bcb37afb502dd7d30e46030cd58}} 
+\index{OdometryProcessor@{OdometryProcessor}!OdometryProcessor@{OdometryProcessor}}
+\index{OdometryProcessor@{OdometryProcessor}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{OdometryProcessor()}{OdometryProcessor()}}
+{\footnotesize\ttfamily Odometry\+Processor\+::\+Odometry\+Processor (\begin{DoxyParamCaption}\item[{float}]{wheel\+Circumference,  }\item[{float}]{wheel\+Base,  }\item[{float}]{gear\+Ratio,  }\item[{float}]{rollover\+Threshold,  }\item[{bool}]{right\+Increase = {\ttfamily true},  }\item[{bool}]{left\+Increase = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Construct a new Odometry Processor object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wheel\+Circumference} & The circumference of the wheels (this assumes both drive wheels are the same size) (meters) \\
+\hline
+{\em wheel\+Base} & The distance between the centerpoint of both drive wheels (meters) \\
+\hline
+{\em gear\+Ratio} & The number of encoder degrees read per 1 degree of wheel travel (float) \\
+\hline
+{\em rollover\+Threshold} & The number of degrees traveled in a single frame by the encoder to trigger a rollover event (int) \\
+\hline
+{\em right\+Increase} & If the right motor increases in values as the system moves forward (bool) \\
+\hline
+{\em left\+Increase} & If the left motor increases in values as the system moves forward (bool) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classOdometryProcessor_a9c4667990910966a0c23f29c9c5ae009}\label{classOdometryProcessor_a9c4667990910966a0c23f29c9c5ae009}} 
+\index{OdometryProcessor@{OdometryProcessor}!calculateDegreesTraveledInFrame@{calculateDegreesTraveledInFrame}}
+\index{calculateDegreesTraveledInFrame@{calculateDegreesTraveledInFrame}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{calculateDegreesTraveledInFrame()}{calculateDegreesTraveledInFrame()}}
+{\footnotesize\ttfamily void Odometry\+Processor\+::calculate\+Degrees\+Traveled\+In\+Frame (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}}]{motor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Calculates the degrees the encoder moved in one frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor} & Which drive motor the current angle reading should be associated with \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classOdometryProcessor_ab4451955617438cc88a67cf663e7226a}\label{classOdometryProcessor_ab4451955617438cc88a67cf663e7226a}} 
+\index{OdometryProcessor@{OdometryProcessor}!calculateDeltaDegrees@{calculateDeltaDegrees}}
+\index{calculateDeltaDegrees@{calculateDeltaDegrees}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{calculateDeltaDegrees()}{calculateDeltaDegrees()}}
+{\footnotesize\ttfamily float Odometry\+Processor\+::calculate\+Delta\+Degrees (\begin{DoxyParamCaption}\item[{float}]{current\+Degree\+Reading,  }\item[{float}]{last\+Degree\+Reading }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Handle the rollover / rollunder of encoders (360-\/$>$1), (1-\/$>$360) v. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Degree\+Reading} & Current reading from the encoder \\
+\hline
+{\em last\+Degree\+Reading} & Last recorded reading from the encoder \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float delta degree between last and current frame of the encoder 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometryProcessor_a6f9677c32729ceed0d068f91137ef8c3}\label{classOdometryProcessor_a6f9677c32729ceed0d068f91137ef8c3}} 
+\index{OdometryProcessor@{OdometryProcessor}!calculateMetersMotorTraveledInFrame@{calculateMetersMotorTraveledInFrame}}
+\index{calculateMetersMotorTraveledInFrame@{calculateMetersMotorTraveledInFrame}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{calculateMetersMotorTraveledInFrame()}{calculateMetersMotorTraveledInFrame()}}
+{\footnotesize\ttfamily void Odometry\+Processor\+::calculate\+Meters\+Motor\+Traveled\+In\+Frame (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}}]{motor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Calculate the meters a single motor traveled in single frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classOdometryProcessor_ab0eac5f33d1e900fb8d364512960ccf8}\label{classOdometryProcessor_ab0eac5f33d1e900fb8d364512960ccf8}} 
+\index{OdometryProcessor@{OdometryProcessor}!getCurrentReading@{getCurrentReading}}
+\index{getCurrentReading@{getCurrentReading}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{getCurrentReading()}{getCurrentReading()}}
+{\footnotesize\ttfamily float Odometry\+Processor\+::get\+Current\+Reading (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}}]{motor }\end{DoxyParamCaption})}
+
+
+
+Get the Current Reading object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometryProcessor_a363f1546795f13272df520472db7c00c}\label{classOdometryProcessor_a363f1546795f13272df520472db7c00c}} 
+\index{OdometryProcessor@{OdometryProcessor}!getDegreesTraveledInFrame@{getDegreesTraveledInFrame}}
+\index{getDegreesTraveledInFrame@{getDegreesTraveledInFrame}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{getDegreesTraveledInFrame()}{getDegreesTraveledInFrame()}}
+{\footnotesize\ttfamily float Odometry\+Processor\+::get\+Degrees\+Traveled\+In\+Frame (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}}]{motor }\end{DoxyParamCaption})}
+
+
+
+Get the degrees traveled by a single motor in a single frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float degrees traveled by motor in frame 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometryProcessor_a26cd934ea62b7654d0e9a98911942e7c}\label{classOdometryProcessor_a26cd934ea62b7654d0e9a98911942e7c}} 
+\index{OdometryProcessor@{OdometryProcessor}!getDeltaTime@{getDeltaTime}}
+\index{getDeltaTime@{getDeltaTime}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{getDeltaTime()}{getDeltaTime()}}
+{\footnotesize\ttfamily int Odometry\+Processor\+::get\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calculate delta time. 
+
+\begin{DoxyReturn}{Returns}
+int delta of timestamp units since last frame 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometryProcessor_ad49bbacd4320f62488223d1ca5eb342f}\label{classOdometryProcessor_ad49bbacd4320f62488223d1ca5eb342f}} 
+\index{OdometryProcessor@{OdometryProcessor}!getDistance@{getDistance}}
+\index{getDistance@{getDistance}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{getDistance()}{getDistance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structDistance}{Distance}} Odometry\+Processor\+::get\+Distance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the \mbox{\hyperlink{structDistance}{Distance}} object. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{structDistance}{Distance}} (meters traveled in last frame and meters traveled since boot up) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometryProcessor_af295b69366134c397799075aae97dce7}\label{classOdometryProcessor_af295b69366134c397799075aae97dce7}} 
+\index{OdometryProcessor@{OdometryProcessor}!getGearRatio@{getGearRatio}}
+\index{getGearRatio@{getGearRatio}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{getGearRatio()}{getGearRatio()}}
+{\footnotesize\ttfamily float Odometry\+Processor\+::get\+Gear\+Ratio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Gear Ratio object. 
+
+\begin{DoxyReturn}{Returns}
+float wheel to encoder ratio 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometryProcessor_afb2b3f86d4b49a0954d5cd7463916005}\label{classOdometryProcessor_afb2b3f86d4b49a0954d5cd7463916005}} 
+\index{OdometryProcessor@{OdometryProcessor}!getLastReading@{getLastReading}}
+\index{getLastReading@{getLastReading}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{getLastReading()}{getLastReading()}}
+{\footnotesize\ttfamily float Odometry\+Processor\+::get\+Last\+Reading (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}}]{motor }\end{DoxyParamCaption})}
+
+
+
+Get the Last Reading object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometryProcessor_a84a9e45bb2e9bf0154d2fc0c6e7eabee}\label{classOdometryProcessor_a84a9e45bb2e9bf0154d2fc0c6e7eabee}} 
+\index{OdometryProcessor@{OdometryProcessor}!getMetersTraveledInFrame@{getMetersTraveledInFrame}}
+\index{getMetersTraveledInFrame@{getMetersTraveledInFrame}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{getMetersTraveledInFrame()}{getMetersTraveledInFrame()}}
+{\footnotesize\ttfamily float Odometry\+Processor\+::get\+Meters\+Traveled\+In\+Frame (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}}]{motor }\end{DoxyParamCaption})}
+
+
+
+Get the meters traveled by a single motor in a single frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float meters traveled by a motor in a single frame 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometryProcessor_ac855a7dc2813dd60cf814d42392b1613}\label{classOdometryProcessor_ac855a7dc2813dd60cf814d42392b1613}} 
+\index{OdometryProcessor@{OdometryProcessor}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structPosition}{Position}} Odometry\+Processor\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the \mbox{\hyperlink{structPosition}{Position}} object. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{structPosition}{Position}} (x,y,theta) or robot in odom coordinate frame 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometryProcessor_a04541965fa8ca0c0e9010deac1d73513}\label{classOdometryProcessor_a04541965fa8ca0c0e9010deac1d73513}} 
+\index{OdometryProcessor@{OdometryProcessor}!getTotalDegreesTraveled@{getTotalDegreesTraveled}}
+\index{getTotalDegreesTraveled@{getTotalDegreesTraveled}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{getTotalDegreesTraveled()}{getTotalDegreesTraveled()}}
+{\footnotesize\ttfamily float Odometry\+Processor\+::get\+Total\+Degrees\+Traveled (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}}]{motor }\end{DoxyParamCaption})}
+
+
+
+Get the total degrees traveled of a single motor since powering up. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor} & Which motor you want the degrees from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float degrees traveled by motor 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometryProcessor_a6c566224746ae1d46f7b679ab4c04d42}\label{classOdometryProcessor_a6c566224746ae1d46f7b679ab4c04d42}} 
+\index{OdometryProcessor@{OdometryProcessor}!getTotalMetersTraveled@{getTotalMetersTraveled}}
+\index{getTotalMetersTraveled@{getTotalMetersTraveled}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{getTotalMetersTraveled()}{getTotalMetersTraveled()}}
+{\footnotesize\ttfamily float Odometry\+Processor\+::get\+Total\+Meters\+Traveled (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}}]{motor }\end{DoxyParamCaption})}
+
+
+
+Get the total meters traveled of a single motor since powering up. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor} & Which motor you want meters from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float total meters traveled by motor 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometryProcessor_ad25922f609418a727ff24638af515aa0}\label{classOdometryProcessor_ad25922f609418a727ff24638af515aa0}} 
+\index{OdometryProcessor@{OdometryProcessor}!getVelocity@{getVelocity}}
+\index{getVelocity@{getVelocity}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{getVelocity()}{getVelocity()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structVelocity}{Velocity}} Odometry\+Processor\+::get\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the \mbox{\hyperlink{structVelocity}{Velocity}} object. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{structVelocity}{Velocity}} (linear m/s and angular rad/s)
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+For velocity calculations the library assumes the encoder processor (arduino, stm, odrive) is offering some form of consistent time stamp. See README for more details on this. 
+\end{DoxyNote}
+\mbox{\Hypertarget{classOdometryProcessor_abc8edce5209ae8c496e43f9ad41a05ee}\label{classOdometryProcessor_abc8edce5209ae8c496e43f9ad41a05ee}} 
+\index{OdometryProcessor@{OdometryProcessor}!getWheelBase@{getWheelBase}}
+\index{getWheelBase@{getWheelBase}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{getWheelBase()}{getWheelBase()}}
+{\footnotesize\ttfamily float Odometry\+Processor\+::get\+Wheel\+Base (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Wheel Base object. 
+
+\begin{DoxyReturn}{Returns}
+float distance between the two drive wheels in meters 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometryProcessor_a3d30c501813a3a878f6b14eab3f54efa}\label{classOdometryProcessor_a3d30c501813a3a878f6b14eab3f54efa}} 
+\index{OdometryProcessor@{OdometryProcessor}!getWheelCircumference@{getWheelCircumference}}
+\index{getWheelCircumference@{getWheelCircumference}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{getWheelCircumference()}{getWheelCircumference()}}
+{\footnotesize\ttfamily float Odometry\+Processor\+::get\+Wheel\+Circumference (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Wheel Circumference object. 
+
+\begin{DoxyReturn}{Returns}
+float wheel circumference in meters 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometryProcessor_a41b1989c925e86359bcae19275311466}\label{classOdometryProcessor_a41b1989c925e86359bcae19275311466}} 
+\index{OdometryProcessor@{OdometryProcessor}!settled@{settled}}
+\index{settled@{settled}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{settled()}{settled()}}
+{\footnotesize\ttfamily bool Odometry\+Processor\+::settled (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Evaluate if system has stabilized from first few readings at boot. 
+
+\begin{DoxyReturn}{Returns}
+true system values are good to use 
+
+false system values are still stabilizing 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOdometryProcessor_a1b9d6feb4c887a0b56a78b612c1e2c26}\label{classOdometryProcessor_a1b9d6feb4c887a0b56a78b612c1e2c26}} 
+\index{OdometryProcessor@{OdometryProcessor}!updateCurrentValue@{updateCurrentValue}}
+\index{updateCurrentValue@{updateCurrentValue}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{updateCurrentValue()}{updateCurrentValue()}}
+{\footnotesize\ttfamily void Odometry\+Processor\+::update\+Current\+Value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{odometry_8h_a3bc45ff9023afee0cc287274e972d7ce}{Motor}}}]{motor,  }\item[{float}]{value }\end{DoxyParamCaption})}
+
+
+
+Update with the latests encoder readings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Encoder angle reading \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classOdometryProcessor_a236259819498ae9dcb7cb5cee34a67f4}\label{classOdometryProcessor_a236259819498ae9dcb7cb5cee34a67f4}} 
+\index{OdometryProcessor@{OdometryProcessor}!updateTimestamp@{updateTimestamp}}
+\index{updateTimestamp@{updateTimestamp}!OdometryProcessor@{OdometryProcessor}}
+\doxysubsubsection{\texorpdfstring{updateTimestamp()}{updateTimestamp()}}
+{\footnotesize\ttfamily void Odometry\+Processor\+::update\+Timestamp (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{timestamp }\end{DoxyParamCaption})}
+
+
+
+Update the latest timestamp of received data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em timestamp} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/christian/\+Documents/demo-\/code-\/amps/encoder-\/to-\/odom-\/library/include/encoder\+\_\+to\+\_\+odom/\mbox{\hyperlink{odometry_8h}{odometry.\+h}}\item 
+/home/christian/\+Documents/demo-\/code-\/amps/encoder-\/to-\/odom-\/library/src/\mbox{\hyperlink{odometry_8cpp}{odometry.\+cpp}}\end{DoxyCompactItemize}
