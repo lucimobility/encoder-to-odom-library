@@ -116,8 +116,8 @@ void OdometryProcessor::calculateFrameDistance()
 
     this->distance.frameDistance = (rightDistance + leftDistance) / 2.0;
 
-    std::cout << "DT (milli): " << this->getDeltaTime()
-              << " DT (sec): " << this->getDeltaTime() / 1000.0f << std::endl;
+    // std::cout << "DT (milli): " << this->getDeltaTime()
+    //           << " DT (sec): " << this->getDeltaTime() / 1000.0f << std::endl;
 
     this->velocity.linearX = this->distance.frameDistance / (this->getDeltaTime() / 1000.0f);
 
