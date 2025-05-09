@@ -7,7 +7,7 @@
  *
  */
 
-#include "encoder_to_odom/odometry.h"
+#include "odometry.h"
 
 OdometryProcessor::OdometryProcessor(float wheelCircumference, float wheelBase, float gearRatio,
                                      float rolloverThreshold, bool rightIncrease, bool leftIncrease)
