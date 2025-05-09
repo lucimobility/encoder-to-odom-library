@@ -23,7 +23,31 @@ make -jn (n is number of parallel jobs you want a good value is usually 4)
 ```
 
 ## Including Library in a Project
-This library can be added to any existing project by either cloning into that project, making it a submodule, or the recommended method if your project uses CMake which is FetchContent command in a CMake file. 
+This library can be added to any existing project by either cloning into that project, making it a submodule, or the recommended method if your project uses CMake which is FetchContent command in a CMake file: 
+
+```
+include(FetchContent)
+set(NO_TESTS TRUE CACHE INTERNAL "Disable tests in fetched content")
+# Clone the odom library
+FetchContent_Declare(encoder_to_odom
+    GIT_REPOSITORY git@github.com:lucimobility/encoder-to-odom.git
+    GIT_TAG <latest git commit hash>
+)
+# Make the library available to the system
+FetchContent_MakeAvailable(encoder_to_odom)
+```
+
+### Conan
+If using conan, this library can also be made into a conan package:
+
+```
+# from the root directory of this project
+# create conan package
+conan create . --build=missing
+
+# upload package to your conan artifactory
+conan upload encoder-to-odom/<version> --remote=<remote conan artifactory> --confirm
+```
 
 ## Testing
 

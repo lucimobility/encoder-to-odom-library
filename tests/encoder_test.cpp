@@ -1,4 +1,4 @@
-#include "encoder_to_odom/odometry.h"
+#include "odometry.h"
 #include <gtest/gtest.h>
 
 // Default test values
