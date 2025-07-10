@@ -38,9 +38,9 @@ void OdometryProcessor::updateTimestamp(uint16_t timestamp)
 
 bool OdometryProcessor::settled()
 {
-    if (this->stablizationAmount > 0)
+    if (this->stabilizationAmount > 0)
     {
-        this->stablizationAmount--;
+        this->stabilizationAmount--;
         return false;
     }
     return true;

@@ -293,7 +293,7 @@ class OdometryProcessor
     std::map<Motor, float> degreesTraveledInFrame;
 
     /// Number of readings to throw out before considering the system stabilized
-    int stablizationAmount = SETTLE_READINGS;
+    int stabilizationAmount = SETTLE_READINGS;
 
     /// Which direction positive change in encoder values should be expected
     bool rightIncrease;
