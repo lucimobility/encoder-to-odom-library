@@ -106,6 +106,12 @@ class OdometryProcessor
     void processData();
 
     /**
+     * @brief Reset the odometry processor to initial state
+     *
+     */
+    void reset();
+
+    /**
      * @brief Get the Position object
      *
      * @return Position (x,y,theta) or robot in odom coordinate frame

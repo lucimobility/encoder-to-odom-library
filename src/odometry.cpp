@@ -178,6 +178,39 @@ void OdometryProcessor::processData()
     }
 }
 
+void OdometryProcessor::reset()
+{
+    // Reset all readings
+    this->currentReadings[Motor::LEFT] = 0.0;
+    this->currentReadings[Motor::RIGHT] = 0.0;
+
+    this->lastReadings[Motor::LEFT] = 0.0;
+    this->lastReadings[Motor::RIGHT] = 0.0;
+
+    this->totalDegreesTraveled[Motor::LEFT] = 0.0;
+    this->totalDegreesTraveled[Motor::RIGHT] = 0.0;
+
+    this->metersTraveledInFrame[Motor::LEFT] = 0.0;
+    this->metersTraveledInFrame[Motor::RIGHT] = 0.0;
+
+    this->distance.frameDistance = 0.0;
+    this->distance.totalDistance = 0.0;
+
+    this->velocity.linearX = 0.0;
+    this->velocity.angularZ = 0.0;
+
+    this->currentPosition.x = 0.0;
+    this->currentPosition.y = 0.0;
+    this->currentPosition.theta = 0.0;
+
+    // Reset timestamp and delta time
+    this->timestamp = 0;
+    this->deltaTime = 0;
+
+    // Reset the stabilization counter
+    this->stabilizationAmount = SETTLE_READINGS;
+}
+
 // Getters
 float OdometryProcessor::getCurrentReading(Motor motor) { return this->currentReadings[motor]; }
 
