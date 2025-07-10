@@ -187,21 +187,14 @@ void OdometryProcessor::reset()
     this->lastReadings[Motor::LEFT] = 0.0;
     this->lastReadings[Motor::RIGHT] = 0.0;
 
-    this->totalDegreesTraveled[Motor::LEFT] = 0.0;
-    this->totalDegreesTraveled[Motor::RIGHT] = 0.0;
-
-    this->metersTraveledInFrame[Motor::LEFT] = 0.0;
-    this->metersTraveledInFrame[Motor::RIGHT] = 0.0;
-
-    this->distance.frameDistance = 0.0;
-    this->distance.totalDistance = 0.0;
-
     this->velocity.linearX = 0.0;
     this->velocity.angularZ = 0.0;
 
-    this->currentPosition.x = 0.0;
-    this->currentPosition.y = 0.0;
-    this->currentPosition.theta = 0.0;
+    this->resetTotalDegreesTraveled();
+    this->resetTotalMetersTraveled();
+
+    this->resetDistance();
+    this->resetPosition();
 
     // Reset timestamp and delta time
     this->timestamp = 0;
@@ -209,6 +202,31 @@ void OdometryProcessor::reset()
 
     // Reset the stabilization counter
     this->stabilizationAmount = SETTLE_READINGS;
+}
+
+void OdometryProcessor::resetDistance()
+{
+    this->distance.frameDistance = 0.0;
+    this->distance.totalDistance = 0.0;
+}
+
+void OdometryProcessor::resetPosition()
+{
+    this->currentPosition.x = 0.0;
+    this->currentPosition.y = 0.0;
+    this->currentPosition.theta = 0.0;
+}
+
+void OdometryProcessor::resetTotalDegreesTraveled()
+{
+    this->totalDegreesTraveled[Motor::LEFT] = 0.0;
+    this->totalDegreesTraveled[Motor::RIGHT] = 0.0;
+}
+
+void OdometryProcessor::resetTotalMetersTraveled()
+{
+    this->totalMetersTraveled[Motor::LEFT] = 0.0;
+    this->totalMetersTraveled[Motor::RIGHT] = 0.0;
 }
 
 // Getters

@@ -112,6 +112,30 @@ class OdometryProcessor
     void reset();
 
     /**
+     * @brief Reset the distance values to zero
+     *
+     */
+    void resetDistance();
+
+    /**
+     * @brief Reset the position values to zero
+     *
+     */
+    void resetPosition();
+
+    /**
+     * @brief Reset the total degrees traveled by both motors to zero
+     *
+     */
+    void resetTotalDegreesTraveled();
+
+    /**
+     * @brief Reset the total meters traveled by both motors to zero
+     *
+     */
+    void resetTotalMetersTraveled();
+
+    /**
      * @brief Get the Position object
      *
      * @return Position (x,y,theta) or robot in odom coordinate frame
@@ -293,10 +317,10 @@ class OdometryProcessor
     /// Mappings for each motors individual recorded values
     std::map<Motor, float> currentReadings;
     std::map<Motor, float> lastReadings;
+    std::map<Motor, float> degreesTraveledInFrame;
     std::map<Motor, float> totalDegreesTraveled;
     std::map<Motor, float> metersTraveledInFrame;
     std::map<Motor, float> totalMetersTraveled;
-    std::map<Motor, float> degreesTraveledInFrame;
 
     /// Number of readings to throw out before considering the system stabilized
     int stabilizationAmount = SETTLE_READINGS;
