@@ -4,7 +4,7 @@ from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout, CMakeDeps
 
 class encoderRecipe(ConanFile):
     name = "encoder-to-odom"
-    version = "1.0.0"
+    version = "1.0.1"
     package_type = "library"
 
     license = "Apache 2.0"
