@@ -9,14 +9,14 @@
 
 #pragma once
 #include <chrono>
-#include <iostream>
+#include <cmath>
 #include <map>
 #include <math.h>
 
 /// @brief  General reusable values
 constexpr float PI = 3.14159265;
-constexpr float THREE_SIXTY = 360.0;
-constexpr int SETTLE_READINGS = 3;
+constexpr float THREE_SIXTY = 360.0f;
+constexpr int STABILIZATION_FRAMES = 3;
 
 /**
  * @brief Enum to determine which motor an encoder is attached to
@@ -78,29 +78,30 @@ class OdometryProcessor
      * @param leftIncrease If the left motor increases in values as the system moves forward (bool)
      */
     OdometryProcessor(float wheelCircumference, float wheelBase, float gearRatio,
-                      float rolloverThreshold, bool rightIncrease = true, bool leftIncrease = true);
+                      float rolloverThreshold, bool rightMotorForwardIncreases = true,
+                      bool leftMotorForwardIncreases = true);
 
     /**
      * @brief Update with the latest encoder readings
      *
      * @param value Encoder angle reading
      */
-    void updateCurrentValue(Motor motor, float value);
+    void updateEncoderReading(Motor motor, float angleInDegrees);
 
     /**
      * @brief Calculate the total distance the robot moved in the x axis
      *
      */
-    void calculateDistanceMovedX();
+    void updateTimestamp(uint16_t newTimestamp);
 
     /**
      * @brief Calculate the total distance the robot moved in the y axis
      *
-     */
-    void calculateDistanceMovedY();
-
-    /**
-     * @brief Run all private calls to process new data frame
+     * Performs the complete odometry calculation pipeline using the most recent encoder readings
+     * and timestamp.
+     *
+     * @warning Ensure both encoder readings are updated before calling
+     * @note During stabilization period, position/velocity remain at zero
      *
      */
     void processData();
@@ -138,9 +139,9 @@ class OdometryProcessor
     /**
      * @brief Get the Position object
      *
-     * @return Position (x,y,theta) or robot in odom coordinate frame
+     * @return Position (x,y,theta) of robot in odom coordinate frame
      */
-    Position getPosition();
+    Position getPosition() const;
 
     /**
      * @brief Get the Velocity object
@@ -150,35 +151,14 @@ class OdometryProcessor
      * @note For velocity calculations the library assumes the encoder processor (arduino, stm,
      * odrive) is offering some form of consistent time stamp. See README for more details on this.
      */
-    Velocity getVelocity();
+    Velocity getVelocity() const;
 
     /**
      * @brief Get the Distance object
      *
      * @return Distance (meters traveled in last frame and meters traveled since boot up)
      */
-    Distance getDistance();
-
-    /**
-     * @brief Get the Wheel Circumference object
-     *
-     * @return float wheel circumference in meters
-     */
-    float getWheelCircumference();
-
-    /**
-     * @brief Get the Wheel Base object
-     *
-     * @return float distance between the two drive wheels in meters
-     */
-    float getWheelBase();
-
-    /**
-     * @brief Get the Gear Ratio object
-     *
-     * @return float wheel to encoder ratio
-     */
-    float getGearRatio();
+    Distance getDistance() const;
 
     /**
      * @brief Get the total degrees traveled of a single motor since powering up
@@ -218,7 +198,7 @@ class OdometryProcessor
      * @param motor
      * @return float
      */
-    float getCurrentReading(Motor motor);
+    float getCurrentEncoderAngles(Motor motor);
 
     /**
      * @brief Get the Last Reading object
@@ -226,14 +206,7 @@ class OdometryProcessor
      * @param motor
      * @return float
      */
-    float getLastReading(Motor motor);
-
-    /**
-     * @brief Update the latest timestamp of received data
-     *
-     * @param timestamp
-     */
-    void updateTimestamp(uint16_t timestamp);
+    float getPreviousEncoderAngles(Motor motor);
 
     /**
      * @brief Calculate delta time
@@ -257,14 +230,14 @@ class OdometryProcessor
      * @param lastDegreeReading Last recorded reading from the encoder
      * @return float delta degree between last and current frame of the encoder
      */
-    float calculateDeltaDegrees(float currentDegreeReading, float lastDegreeReading);
+    float calculateAngleChange(float currentDegreeReading, float lastDegreeReading);
 
     /**
      * @brief Calculate the meters a single motor traveled in single frame
      *
      * @param motor
      */
-    void calculateMetersMotorTraveledInFrame(Motor motor);
+    void calculateMetersTraveledInFrame(Motor motor);
 
     /**
      * @brief Calculate the distance traveled of system in single frame
@@ -277,6 +250,26 @@ class OdometryProcessor
      *
      */
     void calculateTheta();
+
+    /**
+     * @brief Normalize an angle to the range [-π, π]
+     *
+     * @param angle The angle to normalize (in radians)
+     * @return float The normalized angle in range [-π, π]
+     */
+    float normalizeAngle(float angle);
+
+    /**
+     * @brief Calculate robot's position change using enhanced differential drive kinematics
+     *
+     * For small turning angles (< 0.57°), uses linear approximation with midpoint orientation
+     * for computational efficiency while maintaining accuracy. For larger turns, uses exact
+     * arc geometry based on instantaneous center of rotation (ICR) to eliminate position
+     * drift during curved motion.
+     *
+     * @note This method automatically selects the appropriate calculation based on turn severity
+     */
+    void calculatePositionChange();
 
     /**
      * @brief Evaluate if system has stabilized from first few readings at boot
@@ -299,14 +292,6 @@ class OdometryProcessor
     /// Should be fine based on system max speed
     float rolloverThreshold = 100.0;
 
-    /// The last processed Delta angle between encoder frames
-    float previousLeftDegree = 0.0;
-    float previousRightDegree = 0.0;
-
-    /// Sync trackers to determine if new data has been produced by the encoders
-    bool leftSync = false;
-    bool rightSync = false;
-
     /// Position of system
     Position currentPosition = {0, 0, 0};
     /// Distance system has traveled
@@ -315,19 +300,20 @@ class OdometryProcessor
     Velocity velocity = {0, 0};
 
     /// Mappings for each motors individual recorded values
-    std::map<Motor, float> currentReadings;
-    std::map<Motor, float> lastReadings;
+    std::map<Motor, float> currentEncoderAngles;
+    std::map<Motor, float> previousEncoderAngles;
     std::map<Motor, float> degreesTraveledInFrame;
     std::map<Motor, float> totalDegreesTraveled;
     std::map<Motor, float> metersTraveledInFrame;
     std::map<Motor, float> totalMetersTraveled;
 
-    /// Number of readings to throw out before considering the system stabilized
-    int stabilizationAmount = SETTLE_READINGS;
+    /// Countdown of initial encoder readings to discard during system startup
+    /// Prevents inaccurate odometry calculations from unstable initial sensor values
+    int stabilizationAmount = STABILIZATION_FRAMES;
 
     /// Which direction positive change in encoder values should be expected
-    bool rightIncrease;
-    bool leftIncrease;
+    bool rightMotorForwardIncreases;
+    bool leftMotorForwardIncreases;
 
     /// Timestamp of reading from edge device such as Arduino
     uint16_t timestamp = 0;
