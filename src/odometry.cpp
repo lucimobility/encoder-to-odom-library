@@ -1,9 +1,8 @@
 /**
  * @file odometry.cpp
  * @brief File to implement all odom math and encoder convertions
- * @date 2024-03-06
  *
- * @copyright Copyright (c) 2024 LUCI Mobility, Inc. All Rights Reserved.
+ * @copyright Copyright (c) 2025 LUCI Mobility, Inc. All Rights Reserved.
  *
  */
 
