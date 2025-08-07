@@ -1,19 +1,20 @@
 /**
  * @file odometry.h
- * @brief Class and helper types that allow for the conversion of encoder angle readings to odometry
- * values
- * @date 2024-03-06
+ * @brief Differential drive odometry processor for real-time robot positioning
  *
- * @copyright Copyright (c) 2024 LUCI Mobility, Inc. All Rights Reserved.
+ * @details This library converts encoder angle readings into accurate position, velocity, and
+ * distance measurements using sophisticated differential drive kinematics.
+ *
+ * @copyright Copyright (c) 2025 LUCI Mobility, Inc. All Rights Reserved.
  */
 
 #pragma once
+
 #include <chrono>
 #include <cmath>
 #include <map>
 #include <math.h>
 
-/// @brief  General reusable values
 constexpr float PI = 3.14159265;
 constexpr float THREE_SIXTY = 360.0f;
 constexpr int STABILIZATION_FRAMES = 3;
@@ -31,8 +32,30 @@ enum class Motor
 };
 
 /**
- * @brief Position data of the object from starting point
+ *  @brief Robot position in 2D coordinate system with orientation
  *
+ * @details Represents the robot's pose (position + orientation) in a 2D coordinate
+ * system following standard robotics conventions. All measurements are relative
+ * to the starting position when the odometry processor was initialized or reset.
+ *
+ * @par Coordinate System Convention:
+ * @verbatim
+ * Standard Robotics Coordinate System (Right-Hand Rule):
+
+ *                        X (meters)
+ *                        ↑ (positive = forward)
+ *  (radians, positive =  │
+ *   counter-clockwise) θ │
+ *                      ↖ │
+ *       Y   ←────────────┼────
+ *   (meters)             │ (0,0) = Starting Position
+ *   (positive = left)    │
+ *
+ * @endverbatim
+ *
+ * @warning Position is relative to starting point, not absolute coordinates
+ * @note Theta is automatically normalized to [-π, π] range
+ * @see OdometryProcessor::resetPosition() to reset origin
  */
 struct Position
 {
@@ -61,21 +84,27 @@ struct Distance
     float totalDistance; /// Distance that the system has moved (in meters) since being started
 };
 
+/**
+ * @brief Differential drive robot odometry processor
+ *
+ * Converts encoder angle readings to position, velocity, and distance measurements using
+ * differential drive kinematics. Handles encoder rollover and provides stabilization during
+ * startup.
+ *
+ */
 class OdometryProcessor
 {
   public:
     /**
-     * @brief Construct a new Odometry Processor object
+     * @brief Construct a new Odometry Processor with robot-specific parameters
      *
-     * @param wheelCircumference The circumference of the wheels (this assumes both drive wheels are
-     * the same size) (meters)
-     * @param wheelBase The distance between the centerpoint of both drive wheels (meters)
-     * @param gearRatio The number of encoder degrees read per 1 degree of wheel travel (float)
-     * @param rolloverThreshold The number of degrees traveled in a single frame by the encoder to
-     * trigger a rollover event (int)
-     * @param rightIncrease If the right motor increases in values as the system moves forward
-     * (bool)
-     * @param leftIncrease If the left motor increases in values as the system moves forward (bool)
+     * @param wheelCircumference Circumference of drive wheels in meters
+     * @param wheelBase Distance between wheel centers in meters (not wheel edges)
+     * @param gearRatio Number of encoder rotations per wheel rotation
+     * @param rolloverThreshold Maximum encoder angle change per frame before rollover detection
+     * (degrees)
+     * @param rightMotorForwardIncreases True if right encoder increases when robot moves forward
+     * @param leftMotorForwardIncreases True if left encoder increases when robot moves forward
      */
     OdometryProcessor(float wheelCircumference, float wheelBase, float gearRatio,
                       float rolloverThreshold, bool rightMotorForwardIncreases = true,
@@ -84,18 +113,20 @@ class OdometryProcessor
     /**
      * @brief Update with the latest encoder readings
      *
-     * @param value Encoder angle reading
+     * @param motor Which motor the reading is for
+     * @param value angleInDegrees angle reading
      */
     void updateEncoderReading(Motor motor, float angleInDegrees);
 
     /**
-     * @brief Calculate the total distance the robot moved in the x axis
+     * @brief Update the latest timestamp of received data
      *
+     * @param newTimestamp Current timestamp in milliseconds from the microcontroller
      */
     void updateTimestamp(uint16_t newTimestamp);
 
     /**
-     * @brief Calculate the total distance the robot moved in the y axis
+     * @brief Process latest encoder readings and update odometry calculations
      *
      * Performs the complete odometry calculation pipeline using the most recent encoder readings
      * and timestamp.
@@ -163,7 +194,7 @@ class OdometryProcessor
     /**
      * @brief Get the total degrees traveled of a single motor since powering up
      *
-     * @param motor Which motor you want the degrees from
+     * @param motor Which motor to get the degrees from
      * @return float degrees traveled by motor
      */
     float getTotalDegreesTraveled(Motor motor);
@@ -171,7 +202,7 @@ class OdometryProcessor
     /**
      * @brief Get the total meters traveled of a single motor since powering up
      *
-     * @param motor Which motor you want meters from
+     * @param motor Which motor to get the meters from
      * @return float total meters traveled by motor
      */
     float getTotalMetersTraveled(Motor motor);
@@ -179,7 +210,7 @@ class OdometryProcessor
     /**
      * @brief Get the degrees traveled by a single motor in a single frame
      *
-     * @param motor
+     * @param motor Which motor to get the degrees from
      * @return float degrees traveled by motor in frame
      */
     float getDegreesTraveledInFrame(Motor motor);
@@ -187,13 +218,13 @@ class OdometryProcessor
     /**
      * @brief Get the meters traveled by a single motor in a single frame
      *
-     * @param motor
+     * @param motor Which motor to get the meters from
      * @return float meters traveled by a motor in a single frame
      */
     float getMetersTraveledInFrame(Motor motor);
 
     /**
-     * @brief Get the Current Reading object
+     * @brief Get the current encoder angles for a motor
      *
      * @param motor
      * @return float
@@ -201,7 +232,7 @@ class OdometryProcessor
     float getCurrentEncoderAngles(Motor motor);
 
     /**
-     * @brief Get the Last Reading object
+     * @brief Get the previous encoder angles for a motor
      *
      * @param motor
      * @return float
@@ -209,7 +240,7 @@ class OdometryProcessor
     float getPreviousEncoderAngles(Motor motor);
 
     /**
-     * @brief Calculate delta time
+     * @brief Get the delta time since last frame
      *
      * @return int delta of timestamp units since last frame
      */
@@ -224,10 +255,14 @@ class OdometryProcessor
     void calculateDegreesTraveledInFrame(Motor motor);
 
     /**
-     * @brief Handle the rollover / rollunder of encoders (360->1), (1->360)
-     *v
-     * @param currentDegreeReading Current reading from the encoder
-     * @param lastDegreeReading Last recorded reading from the encoder
+     * @brief Handle encoder rollover/rollunder when crossing 360°/0° boundary
+     *
+     * Detects when encoder readings wrap around (360° → 0° or 0° → 360°) and
+     * calculates the correct angular change. Uses rolloverThreshold to distinguish
+     * between legitimate large movements and boundary crossings.
+     *
+     * @param currentDegreeReading Current encoder reading in degrees
+     * @param lastDegreeReading Previous encoder reading in degrees
      * @return float delta degree between last and current frame of the encoder
      */
     float calculateAngleChange(float currentDegreeReading, float lastDegreeReading);
@@ -246,7 +281,11 @@ class OdometryProcessor
     void calculateFrameDistance();
 
     /**
-     * @brief Calculate the total radians traveled since boot
+     * @brief Calculate robot's orientation change and angular velocity
+     *
+     * Uses differential drive kinematics to compute the change in robot heading
+     * based on the difference in left and right wheel distances. Updates both
+     * the current orientation (theta) and angular velocity.
      *
      */
     void calculateTheta();
@@ -288,8 +327,8 @@ class OdometryProcessor
     /// Number of rotations encoder makes per 1 wheel rotation
     float gearRatio = 1.0;
 
-    /// Angle value that a delta change triggers a rollover
-    /// Should be fine based on system max speed
+    /// Minimum angle change (degrees) in single frame to trigger rollover detection
+    /// Should be set based on maximum expected robot speed to avoid false triggers
     float rolloverThreshold = 100.0;
 
     /// Position of system
