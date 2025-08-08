@@ -37,8 +37,8 @@ class Tester : public OdometryProcessor
      */
     void callMeterCalculation()
     {
-        this->calculateMetersMotorTraveledInFrame(Motor::LEFT);
-        this->calculateMetersMotorTraveledInFrame(Motor::RIGHT);
+        this->calculateMetersTraveledInFrame(Motor::LEFT);
+        this->calculateMetersTraveledInFrame(Motor::RIGHT);
     }
 
     /**
@@ -62,10 +62,10 @@ class Tester : public OdometryProcessor
      */
     void settleReadings(float leftValue, float rightValue)
     {
-        for (int i = 0; i < SETTLE_READINGS; i++)
+        for (int i = 0; i < STABILIZATION_FRAMES; i++)
         {
-            this->updateCurrentValue(Motor::LEFT, leftValue);
-            this->updateCurrentValue(Motor::RIGHT, rightValue);
+            this->updateEncoderReading(Motor::LEFT, leftValue);
+            this->updateEncoderReading(Motor::RIGHT, rightValue);
             // Update current time by 1 second
             this->startTime = 1000 * (i + 1);
             this->updateTimestamp(this->startTime); // Each reading happens one second apart
@@ -84,27 +84,27 @@ class Tester : public OdometryProcessor
         float rightEncoderReading = 300;
         this->settleReadings(leftEncoderReading, rightEncoderReading);
 
-        this->updateCurrentValue(Motor::LEFT, 350);  // -130
-        this->updateCurrentValue(Motor::RIGHT, 100); // 160
+        this->updateEncoderReading(Motor::LEFT, 350);  // -130
+        this->updateEncoderReading(Motor::RIGHT, 100); // 160
         this->startTime += 1000;
         this->updateTimestamp(this->startTime); // Each reading happens one second apart
 
         this->processData();
 
-        this->updateCurrentValue(Motor::LEFT, 260);  // -90
-        this->updateCurrentValue(Motor::RIGHT, 190); // 90
+        this->updateEncoderReading(Motor::LEFT, 260);  // -90
+        this->updateEncoderReading(Motor::RIGHT, 190); // 90
         this->startTime += 1000;
         this->updateTimestamp(this->startTime); // Each reading happens one second apart
         this->processData();
 
-        this->updateCurrentValue(Motor::LEFT, 160);  // -100
-        this->updateCurrentValue(Motor::RIGHT, 290); // 100
+        this->updateEncoderReading(Motor::LEFT, 160);  // -100
+        this->updateEncoderReading(Motor::RIGHT, 290); // 100
         this->startTime += 1000;
         this->updateTimestamp(this->startTime); // Each reading happens one second apart
         this->processData();
 
-        this->updateCurrentValue(Motor::LEFT, 120);  // 40
-        this->updateCurrentValue(Motor::RIGHT, 300); // 10
+        this->updateEncoderReading(Motor::LEFT, 120);  // 40
+        this->updateEncoderReading(Motor::RIGHT, 300); // 10
         this->startTime += 1000;
         this->updateTimestamp(this->startTime); // Each reading happens one second apart
         this->processData();
@@ -121,20 +121,20 @@ class Tester : public OdometryProcessor
         float rightEncoderReading = 300;
         this->settleReadings(leftEncoderReading, rightEncoderReading);
 
-        this->updateCurrentValue(Motor::LEFT, 350); // -130
-        this->updateCurrentValue(Motor::RIGHT, 70); // 130
+        this->updateEncoderReading(Motor::LEFT, 350); // -130
+        this->updateEncoderReading(Motor::RIGHT, 70); // 130
         this->processData();
 
-        this->updateCurrentValue(Motor::LEFT, 260);  // -90
-        this->updateCurrentValue(Motor::RIGHT, 160); // 90
+        this->updateEncoderReading(Motor::LEFT, 260);  // -90
+        this->updateEncoderReading(Motor::RIGHT, 160); // 90
         this->processData();
 
-        this->updateCurrentValue(Motor::LEFT, 160);  // -100
-        this->updateCurrentValue(Motor::RIGHT, 260); // 100
+        this->updateEncoderReading(Motor::LEFT, 160);  // -100
+        this->updateEncoderReading(Motor::RIGHT, 260); // 100
         this->processData();
 
-        this->updateCurrentValue(Motor::LEFT, 120);  // 40
-        this->updateCurrentValue(Motor::RIGHT, 300); // 40
+        this->updateEncoderReading(Motor::LEFT, 120);  // 40
+        this->updateEncoderReading(Motor::RIGHT, 300); // 40
         this->processData();
     }
     uint16_t startTime = 0;
@@ -149,8 +149,8 @@ TEST(FrameTests, UpdateReadings)
     float rightEncoderReading = 50;
     processor.settleReadings(leftEncoderReading, rightEncoderReading);
 
-    auto currentLeftReading = processor.getCurrentReading(Motor::LEFT);
-    auto currentRightReading = processor.getCurrentReading(Motor::RIGHT);
+    auto currentLeftReading = processor.getCurrentEncoderAngles(Motor::LEFT);
+    auto currentRightReading = processor.getCurrentEncoderAngles(Motor::RIGHT);
 
     ASSERT_EQ(leftEncoderReading, currentLeftReading);
     ASSERT_EQ(rightEncoderReading, currentRightReading);
@@ -184,8 +184,8 @@ TEST(FrameTests, DeltaDegrees)
     leftEncoderReading = 90;
     rightEncoderReading = 70;
 
-    processor.updateCurrentValue(Motor::LEFT, leftEncoderReading);
-    processor.updateCurrentValue(Motor::RIGHT, rightEncoderReading);
+    processor.updateEncoderReading(Motor::LEFT, leftEncoderReading);
+    processor.updateEncoderReading(Motor::RIGHT, rightEncoderReading);
 
     processor.callDegreeCalculation();
 
@@ -208,8 +208,8 @@ TEST(FrameTests, RollOver)
     leftEncoderReading = 350; // Delta of -130
     rightEncoderReading = 50; // Delta of 110 degrees
 
-    processor.updateCurrentValue(Motor::LEFT, leftEncoderReading);
-    processor.updateCurrentValue(Motor::RIGHT, rightEncoderReading);
+    processor.updateEncoderReading(Motor::LEFT, leftEncoderReading);
+    processor.updateEncoderReading(Motor::RIGHT, rightEncoderReading);
 
     processor.callDegreeCalculation();
 
@@ -232,8 +232,8 @@ TEST(FrameTests, Velocity)
     leftEncoderReading = 90;
     rightEncoderReading = 80;
 
-    processor.updateCurrentValue(Motor::LEFT, leftEncoderReading);
-    processor.updateCurrentValue(Motor::RIGHT, rightEncoderReading);
+    processor.updateEncoderReading(Motor::LEFT, leftEncoderReading);
+    processor.updateEncoderReading(Motor::RIGHT, rightEncoderReading);
 
     processor.updateTimestamp(processor.startTime + 500); // Each reading happens 0.5 second apart
     processor.processData();

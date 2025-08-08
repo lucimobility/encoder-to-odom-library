@@ -1,7 +1,0 @@
-<map id="OdometryProcessor" name="OdometryProcessor">
-<area shape="rect" id="node1" title=" " alt="" coords="147,168,298,195"/>
-<area shape="rect" id="node2" href="$structPosition.html" title="Position data of the object from starting point." alt="" coords="5,5,80,32"/>
-<area shape="rect" id="node3" href="$structVelocity.html" title="Velocity of robot at given time." alt="" coords="132,5,207,32"/>
-<area shape="rect" id="node4" href="$structDistance.html" title="Distance struct for frame distance and total distance from startup." alt="" coords="231,5,310,32"/>
-<area shape="rect" id="node5" title=" " alt="" coords="334,5,519,32"/>
-</map>
