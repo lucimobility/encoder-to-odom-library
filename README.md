@@ -53,12 +53,12 @@ This library can be added to any existing project by either cloning into that pr
 include(FetchContent)
 set(NO_TESTS TRUE CACHE INTERNAL "Disable tests in fetched content")
 # Clone the odom library
-FetchContent_Declare(encoder_to_odom
+FetchContent_Declare(encoder_to_odom_library
     GIT_REPOSITORY git@github.com:lucimobility/encoder-to-odom.git
     GIT_TAG <latest git commit hash>
 )
 # Make the library available to the system
-FetchContent_MakeAvailable(encoder_to_odom)
+FetchContent_MakeAvailable(encoder_to_odom_library)
 ```
 
 ### Conan
