@@ -43,4 +43,4 @@ class encoderRecipe(ConanFile):
         cmake.install()
 
     def package_info(self):
-        self.cpp_info.libs = ["encoder_to_odom"]
+        self.cpp_info.libs = ["encoder_to_odom_library"]
