@@ -61,18 +61,6 @@ FetchContent_Declare(encoder_to_odom_library
 FetchContent_MakeAvailable(encoder_to_odom_library)
 ```
 
-### Conan
-
-If using conan, this library can also be made into a conan package:
-
-```
-# Create conan package from project root
-conan create . --build=missing
-
-# upload package to your conan artifactory
-conan upload encoder-to-odom/<version> --remote=<remote conan artifactory> --confirm
-```
-
 ## Testing
 
 This library uses gtesting suit to run unit tests. To run tests follow the below instructions.
